@@ -20,7 +20,9 @@ export default function Router({isAuth}) {
       element: isAuth ? <DashboardLayout /> : <Navigate to="/login" />,
       children: [
         { path: 'app', element: <DashboardApp /> },
-        { path: 'user', element: <User /> },
+        // { path: 'user', element: <User heading={'User'}/> },
+        { path: 'patient', element: <User heading={'Patient'}/> },
+        { path: 'doctor', element: <User heading={'Doctor'}/> },
         { path: 'products', element: <Products /> },
         { path: 'blog', element: <Blog /> },
       ],
