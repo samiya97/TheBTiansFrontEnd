@@ -100,10 +100,6 @@ export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
               From only $69
             </Typography>
           </Box>
-
-          <Button href="https://material-ui.com/store/items/minimal-dashboard/" target="_blank" variant="contained">
-            Upgrade to Pro
-          </Button>
         </Stack>
       </Box> */}
     </Scrollbar>

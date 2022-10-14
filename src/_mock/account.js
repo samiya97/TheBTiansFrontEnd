@@ -2,7 +2,7 @@
 
 const account = {
   displayName: 'Jaydon Frankie',
-  email: 'demo@minimals.cc',
+  email: 'demo@carepro.cc',
   photoURL: '/static/mock-images/avatars/avatar_default.jpg',
 };
 
