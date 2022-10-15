@@ -22,20 +22,25 @@ const navConfig = [
     icon: getIcon('eva:people-fill'),
   },
   {
-    title: 'doctor',
-    path: '/dashboard/doctor',
-    icon: getIcon('fontisto:doctor'),
+    title: 'prescription',
+    path: '/dashboard/prescription',
+    icon: getIcon('icon-park-solid:prescription'),
   },
-  {
-    title: 'product',
-    path: '/dashboard/products',
-    icon: getIcon('eva:shopping-bag-fill'),
-  },
-  {
-    title: 'blog',
-    path: '/dashboard/blog',
-    icon: getIcon('eva:file-text-fill'),
-  },
+  // {
+  //   title: 'doctor',
+  //   path: '/dashboard/doctor',
+  //   icon: getIcon('fontisto:doctor'),
+  // },
+  // {
+  //   title: 'product',
+  //   path: '/dashboard/products',
+  //   icon: getIcon('eva:shopping-bag-fill'),
+  // },
+  // {
+  //   title: 'blog',
+  //   path: '/dashboard/blog',
+  //   icon: getIcon('eva:file-text-fill'),
+  // },
   // {
   //   title: 'login',
   //   path: '/login',
