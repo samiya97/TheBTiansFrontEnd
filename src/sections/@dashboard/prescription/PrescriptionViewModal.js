@@ -1,48 +1,18 @@
 import React from 'react';
-import * as Yup from 'yup';
-// form
-import { useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
+
 // @mui
-import { Stack,Button } from '@mui/material';
-import { LoadingButton } from '@mui/lab';
+import { Stack,Button, Grid,Typography } from '@mui/material';
 
 // components
 import CustomizedDialogs from "components/modal";
 import ModalAction from "components/modal/modalAction";
 import ModalContent from "components/modal/modalContent";
-import { FormProvider, RHFTextField } from 'components/hook-form';
 
 
-const PrescriptionViewModal = ({open,onClose}) => {
-
-    const ProfileSchema = Yup.object().shape({
-        firstName: Yup.string().required('First name is required'),
-        lastName: Yup.string().required('Last name is required'),
-        email: Yup.string().email('Email must be a valid email address').required('Email is required'),
-      });
-    
-      const defaultValues = {
-        firstName:'',
-        lastName:'',
-        email: ''
-      };
-    
-      const methods = useForm({
-        resolver: yupResolver(ProfileSchema),
-        defaultValues,
-      });
-    
-      const {
-        handleSubmit,
-        formState: { isSubmitting },
-      } = methods;
-    
-      const onSubmit = async (e) => {
-        console.log("onsubmit",e)
-      };
+const PrescriptionViewModal = ({open,onClose,data}) => {
 
       const onEntering = () => {
+          console.log("data",data)
         // we can use this function to set form values get from api
         // methods.setValue('firstName','test name');
       }
@@ -58,19 +28,41 @@ const PrescriptionViewModal = ({open,onClose}) => {
 
          <ModalContent>
           <div>
-            <FormProvider methods={methods}>
-                <Stack spacing={3}>
-                    <RHFTextField name="firstName" label="First Name" />
-                    <RHFTextField name="lastName" label="Last Name" />
-                    <RHFTextField name="email" label="Email address" />
-                </Stack>
-            </FormProvider>
+            <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+                <Grid item xs={6}>
+                    <div>
+                    <Typography gutterBottom variant="caption" sx={{ color: 'text.disabled', display: 'block' }}>
+                        Name
+                    </Typography>
+                    <Typography gutterBottom variant="subtitle2" sx={{ display: 'block' }}>
+                        {data?.name}
+                    </Typography>
+                    </div>
+                </Grid>
+                <Grid item xs={6}>
+                    <div>
+                    <Typography gutterBottom variant="caption" sx={{ color: 'text.disabled', display: 'block' }}>
+                        Company
+                    </Typography>
+                    <Typography gutterBottom variant="subtitle2" sx={{ display: 'block' }}>
+                        {data?.company}
+                    </Typography>
+                    </div>
+                </Grid>
+                <Grid item xs={6}>
+                    <div>
+                    <Typography gutterBottom variant="caption" sx={{ color: 'text.disabled', display: 'block' }}>
+                        Role
+                    </Typography>
+                    <Typography gutterBottom variant="subtitle2" sx={{ display: 'block' }}>
+                        {data?.role}
+                    </Typography>
+                    </div>
+                </Grid>
+            </Grid>
           </div>
         </ModalContent>
         <ModalAction>
-        {/* <LoadingButton  size="small" type="button" variant="contained" loading={isSubmitting} onClick={handleSubmit(onSubmit)}>
-                    Save
-                </LoadingButton> */}
           <Button autoFocus onClick={onClose}>
             Cancel
           </Button>

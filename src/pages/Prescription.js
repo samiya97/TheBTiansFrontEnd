@@ -73,6 +73,7 @@ function applySortFilter(array, comparator, query) {
 export default function Prescription() {
   const [page, setPage] = useState(0);
   const [openModal, setOpenModal] = useState(false);
+  const [selectedData, setSelectedData] = useState(null);
 
   const [order, setOrder] = useState('asc');
 
@@ -126,6 +127,16 @@ export default function Prescription() {
   const handleFilterByName = (event) => {
     setFilterName(event.target.value);
   };
+
+  const onViewPrescription = (item) => {
+    setSelectedData(item);
+    setOpenModal(true);
+  }
+
+  const onCloseModal = () => {
+    setSelectedData(null);
+    setOpenModal(false);
+  }
 
   const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - USERLIST.length) : 0;
 
@@ -195,7 +206,7 @@ export default function Prescription() {
                         </TableCell>
 
                         <TableCell align="right">
-                          <PrescriptionMoreMenu handleMenuClick={() => setOpenModal(true)}/>
+                          <PrescriptionMoreMenu handleMenuClick={() => onViewPrescription(row)}/>
                         </TableCell>
                       </TableRow>
                     );
@@ -234,7 +245,8 @@ export default function Prescription() {
     
         <PrescriptionViewModal 
             open={openModal}
-            onClose={() => setOpenModal(false)}
+            onClose={onCloseModal}
+            data={selectedData}
         />
 
     </Page>
