@@ -8,24 +8,29 @@ import { Box, Divider, Typography, Stack, MenuItem, Avatar, IconButton } from '@
 // slices
 import { onLogout } from 'services/slices/authSlice';
 // components
+import ProfileModal from './profileModal';
 import MenuPopover from '../../components/MenuPopover';
 // mocks_
 import account from '../../_mock/account';
+
 
 // ----------------------------------------------------------------------
 
 const MENU_OPTIONS = [
   {
+    id:'home',
     label: 'Home',
     icon: 'eva:home-fill',
     linkTo: '/',
   },
   {
+    id:'profile',
     label: 'Profile',
     icon: 'eva:person-fill',
     linkTo: '#',
   },
   {
+    id:'settings',
     label: 'Settings',
     icon: 'eva:settings-2-fill',
     linkTo: '#',
@@ -35,10 +40,11 @@ const MENU_OPTIONS = [
 // ----------------------------------------------------------------------
 
 export default function AccountPopover() {
+  const [openProfile, setOpenProfile] = useState(false);
+  const [open, setOpen] = useState(null);
   const anchorRef = useRef(null);
   const dispatch = useDispatch();
 
-  const [open, setOpen] = useState(null);
 
   const handleOpen = (event) => {
     setOpen(event.currentTarget);
@@ -51,7 +57,19 @@ export default function AccountPopover() {
   const handleLogout = () => {
     setOpen(null);
     dispatch(onLogout());
+  }
 
+  const handleMenuClick = (key) => {
+    if(key === 'profile'){
+      openProfileModal();  
+    }
+
+    handleClose();
+
+  }
+
+  const openProfileModal = () => {
+    setOpenProfile(true);
   }
 
   return (
@@ -104,7 +122,7 @@ export default function AccountPopover() {
 
         <Stack sx={{ p: 1 }}>
           {MENU_OPTIONS.map((option) => (
-            <MenuItem key={option.label} to={option.linkTo} component={RouterLink} onClick={handleClose}>
+            <MenuItem key={option.label} to={option.linkTo} component={RouterLink} onClick={() => handleMenuClick(option.id)}>
               {option.label}
             </MenuItem>
           ))}
@@ -116,6 +134,12 @@ export default function AccountPopover() {
           Logout
         </MenuItem>
       </MenuPopover>
+
+      {/* Profile Modal */}
+      <ProfileModal 
+        open={openProfile}
+        onClose={() => setOpenProfile(false)}
+      />
     </>
   );
 }
