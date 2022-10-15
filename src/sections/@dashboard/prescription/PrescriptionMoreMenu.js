@@ -12,7 +12,7 @@ export default function PrescriptionMoreMenu({handleMenuClick}) {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleItemClick = () => {
-    handleItemClick();
+    handleMenuClick();
     setIsOpen(false);
   }
 
