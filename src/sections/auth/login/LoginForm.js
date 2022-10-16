@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
 // slices
-import { onLogin } from 'services/slices/authSlice';
+import { loginAsync,onLogin } from 'services/slices/authSlice';
 // form
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -12,6 +12,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { Link, Stack, IconButton, InputAdornment } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 // components
+import ToastAlert from 'components/ToastAlert';
 import Iconify from '../../../components/Iconify';
 import { FormProvider, RHFTextField, RHFCheckbox } from '../../../components/hook-form';
 
@@ -44,12 +45,22 @@ export default function LoginForm() {
     formState: { isSubmitting },
   } = methods;
 
-  const onSubmit = async (e) => {
-    console.log("onsubmit",e)
-    dispatch(onLogin(e))
+  const onSubmit = async (credentials) => {
+    console.log("onsubmit",credentials)
+    dispatch(onLogin(credentials))
     setTimeout(() => {
       navigate('/dashboard/app', { replace: true });
     },2000)
+
+    // await dispatch(loginAsync(credentials))
+    // .then((res) => {
+    //   console.log("Res",res);
+    //   navigate('/dashboard/app', { replace: true });
+
+    // })
+    // .catch((err) => {
+    //   console.info('loginFormHandler::', err);
+    // });
   };
 
   return (

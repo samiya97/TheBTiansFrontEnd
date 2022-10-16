@@ -14,7 +14,7 @@ import config from 'config';
 
 /*  Creating Axios instance */
 const instance = Axios.create({
-  baseURL: config.apiUrl + config.apiVersion
+  baseURL: config.apiUrl
 });
 
 const ApiServices = {

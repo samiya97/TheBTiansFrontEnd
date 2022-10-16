@@ -1,4 +1,4 @@
 export const Auth = {
-    LOGIN:'/login',
-    signUp:'/signup'
+    LOGIN:'/Login/Login',
+    SIGNUP:'/Login/Registration'
 }
