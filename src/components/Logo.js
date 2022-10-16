@@ -5,7 +5,8 @@ import { useTheme } from '@mui/material/styles';
 import { Box } from '@mui/material';
 
 // components
-import CareProLogo from 'assets/images/carepro-logo.png';
+//import CareProLogo from 'assets/images/carepro-logo.png';
+import CareProLogo from 'assets/images/carepro-logo2.png';
 
 // ----------------------------------------------------------------------
 
@@ -27,7 +28,7 @@ export default function Logo({ disabledLink = false, sx }) {
   // const logo = <Box component="img" src="/static/logo.svg" sx={{ width: 40, height: 40, ...sx }} />
 
   const logo = (
-    <Box sx={{ width: 40, height: 40, ...sx }}>
+    <Box sx={{ width: 180, height: 80, ...sx }}>
       <img src={CareProLogo} alt='logo here'/>
       {/* <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 512 512">
         <defs>

@@ -31,11 +31,13 @@ import USERLIST from '../_mock/user';
 // ----------------------------------------------------------------------
 
 const TABLE_HEAD = [
-  { id: 'name', label: 'Name', alignRight: false },
-  { id: 'company', label: 'Company', alignRight: false },
-  { id: 'role', label: 'Role', alignRight: false },
-  { id: 'isVerified', label: 'Verified', alignRight: false },
-  { id: 'status', label: 'Status', alignRight: false },
+  { id: 'Lab Tests', label: 'Lab Tests', alignRight: false },
+  { id: 'Medicines', label: 'Medicines', alignRight: false },
+  { id: 'Dosage', label: 'Dosage', alignRight: false },
+  { id: 'Days', label: 'Days', alignRight: false },
+  { id: 'Time', label: 'Time', alignRight: false },
+  { id: 'Instruction', label: 'Instruction', alignRight: false },
+  { id: 'Status', label: 'Status', alignRight: false },
   { id: '' },
 ];
 
@@ -174,6 +176,7 @@ export default function Prescription() {
                 <TableBody>
                   {filteredUsers.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
                     const { id, name, role, status, company, avatarUrl, isVerified } = row;
+                    //const { id, LabTests, Medicines, Dosage, Days, Time, Instruction, Status} = row;
                     const isItemSelected = selected.indexOf(name) !== -1;
 
                     return (
@@ -198,7 +201,9 @@ export default function Prescription() {
                         </TableCell>
                         <TableCell align="left">{company}</TableCell>
                         <TableCell align="left">{role}</TableCell>
+                        <TableCell align="left">{role}</TableCell>
                         <TableCell align="left">{isVerified ? 'Yes' : 'No'}</TableCell>
+                        <TableCell align="left">{role}</TableCell>
                         <TableCell align="left">
                           <Label variant="ghost" color={(status === 'banned' && 'error') || 'success'}>
                             {sentenceCase(status)}
@@ -210,6 +215,36 @@ export default function Prescription() {
                         </TableCell>
                       </TableRow>
                     );
+
+                    // return (
+                    //   <TableRow
+                    //     hover
+                    //     key={id}
+                    //     tabIndex={-1}
+                    //     role="checkbox"
+                    //     selected={isItemSelected}
+                    //     aria-checked={isItemSelected}
+                    //   >
+                    //     <TableCell padding="checkbox">
+                    //       <Checkbox checked={isItemSelected} onChange={(event) => handleClick(event, Medicines)} />
+                    //     </TableCell>
+                    //     <TableCell align="left">{LabTests}</TableCell>
+                    //     <TableCell align="left">{Medicines}</TableCell>
+                    //     <TableCell align="left">{Dosage}</TableCell>
+                    //     <TableCell align="left">{Days}</TableCell>
+                    //     <TableCell align="left">{Time}</TableCell>
+                    //     <TableCell align="left">{Instruction}</TableCell>
+                    //     <TableCell align="left">
+                    //       <Label variant="ghost" color={(Status === 'banned' && 'error') || 'success'}>
+                    //         {sentenceCase(Status)}
+                    //       </Label>
+                    //     </TableCell>
+
+                    //     <TableCell align="right">
+                    //       <PrescriptionMoreMenu handleMenuClick={() => onViewPrescription(row)}/>
+                    //     </TableCell>
+                    //   </TableRow>
+                    // );
                   })}
                   {emptyRows > 0 && (
                     <TableRow style={{ height: 53 * emptyRows }}>
