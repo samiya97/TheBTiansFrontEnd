@@ -26,6 +26,11 @@ const navConfig = [
     path: '/dashboard/prescription',
     icon: getIcon('icon-park-solid:prescription'),
   },
+  {
+    title: 'checkup',
+    path: '/dashboard/checkup',
+    icon: getIcon('tabler:checkup-list'),
+  },
   // {
   //   title: 'doctor',
   //   path: '/dashboard/doctor',

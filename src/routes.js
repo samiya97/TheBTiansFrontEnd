@@ -1,5 +1,6 @@
 import { Navigate, useRoutes } from 'react-router-dom';
 // layouts
+import Checkup from 'pages/Checkup';
 import DashboardLayout from './layouts/dashboard';
 import LogoOnlyLayout from './layouts/LogoOnlyLayout';
 //
@@ -24,6 +25,7 @@ export default function Router({isAuth}) {
         // { path: 'user', element: <User heading={'User'}/> },
         { path: 'patient', element: <User heading={'Patient'}/> },
         { path: 'prescription', element: <Prescription /> },
+        { path: 'checkup', element: <Checkup /> },
         { path: 'doctor', element: <User heading={'Doctor'}/> },
         // { path: 'products', element: <Products /> },
         // { path: 'blog', element: <Blog /> },
