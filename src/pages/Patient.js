@@ -19,23 +19,27 @@ import {
   TablePagination,
 } from '@mui/material';
 // components
-import { fDate,fDateTime,fToNow } from 'utils/formatTime';
+import { fDate } from 'utils/formatTime';
 import Page from '../components/Page';
 import Label from '../components/Label';
 import Scrollbar from '../components/Scrollbar';
 import Iconify from '../components/Iconify';
 import SearchNotFound from '../components/SearchNotFound';
-import { CheckupListHead, CheckupListToolbar, CheckupMoreMenu, CheckupViewModal } from '../sections/@dashboard/checkup';
+import { UserListHead, UserListToolbar, UserMoreMenu } from '../sections/@dashboard/user';
 // mock
-import CheckupLIST from '../_mock/checkup';
+// import USERLIST from '../_mock/user';
+import USERLIST from '../_mock/patient';
+
 
 // ----------------------------------------------------------------------
 
 const TABLE_HEAD = [
-  { id: 'date', label: 'Date', alignRight: false },
-  { id: 'expected', label: 'Expected', alignRight: false },
-  { id: 'doctorName', label: 'Doctor', alignRight: false },
-  { id: 'priority', label: 'Priority', alignRight: false },
+  { id: 'name', label: 'Name', alignRight: false },
+  { id: 'gender', label: 'Gender', alignRight: false },
+  { id: 'dob', label: 'DOB', alignRight: false },
+  { id: 'address', label: 'Address', alignRight: false },
+  { id: 'bloodGroup', label: 'Blood Group', alignRight: false },
+  { id: 'height', label: 'height', alignRight: false },
   { id: 'status', label: 'Status', alignRight: false },
   { id: '' },
 ];
@@ -71,10 +75,8 @@ function applySortFilter(array, comparator, query) {
   return stabilizedThis.map((el) => el[0]);
 }
 
-export default function Checkup() {
+export default function Patient({heading=""}) {
   const [page, setPage] = useState(0);
-  const [openModal, setOpenModal] = useState(false);
-  const [selectedData, setSelectedData] = useState(null);
 
   const [order, setOrder] = useState('asc');
 
@@ -94,7 +96,7 @@ export default function Checkup() {
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelecteds = CheckupLIST.map((n) => n.name);
+      const newSelecteds = USERLIST.map((n) => n.name);
       setSelected(newSelecteds);
       return;
     }
@@ -129,56 +131,43 @@ export default function Checkup() {
     setFilterName(event.target.value);
   };
 
-  const onViewCheckup = (item) => {
-    if(item){
-        setSelectedData(item);
-    }
+  const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - USERLIST.length) : 0;
 
-    setOpenModal(true);
-  }
-
-  const onCloseModal = () => {
-    setSelectedData(null);
-    setOpenModal(false);
-  }
-
-  const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - CheckupLIST.length) : 0;
-
-  const filteredUsers = applySortFilter(CheckupLIST, getComparator(order, orderBy), filterName);
+  const filteredUsers = applySortFilter(USERLIST, getComparator(order, orderBy), filterName);
 
   const isUserNotFound = filteredUsers.length === 0;
 
   return (
-    <Page title={'Checkup'}>
+    <Page title={heading}>
       <Container>
         <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
           <Typography variant="h4" gutterBottom>
-          Checkup
+            {heading}
           </Typography>
-          <Button variant="contained" onClick={onViewCheckup} startIcon={<Iconify icon="eva:plus-fill" />}>
-            New Checkup
+          <Button variant="contained" component={RouterLink} to="#" startIcon={<Iconify icon="eva:plus-fill" />}>
+            New {heading}
           </Button>
         </Stack>
 
         <Card>
-          <CheckupListToolbar numSelected={selected.length} filterName={filterName} onFilterName={handleFilterByName} />
+          <UserListToolbar numSelected={selected.length} filterName={filterName} onFilterName={handleFilterByName} />
 
           <Scrollbar>
             <TableContainer sx={{ minWidth: 800 }}>
               <Table>
-                <CheckupListHead
+                <UserListHead
                   order={order}
                   orderBy={orderBy}
                   headLabel={TABLE_HEAD}
-                  rowCount={CheckupLIST.length}
+                  rowCount={USERLIST.length}
                   numSelected={selected.length}
                   onRequestSort={handleRequestSort}
                   onSelectAllClick={handleSelectAllClick}
                 />
                 <TableBody>
                   {filteredUsers.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
-                    const { id, date, status,priority,doctorName } = row;
-                    const isItemSelected = selected.indexOf(id) !== -1;
+                    const { id, name, gender,dob,address,bloodGroup,height, status, avatarUrl,  } = row;
+                    const isItemSelected = selected.indexOf(name) !== -1;
 
                     return (
                       <TableRow
@@ -190,26 +179,29 @@ export default function Checkup() {
                         aria-checked={isItemSelected}
                       >
                         <TableCell padding="checkbox">
-                          <Checkbox checked={isItemSelected} onChange={(event) => handleClick(event, id)} />
+                          <Checkbox checked={isItemSelected} onChange={(event) => handleClick(event, name)} />
                         </TableCell>
-                        <TableCell component="th" scope="row" >
-                              {fDateTime(date)}
+                        <TableCell component="th" scope="row" padding="none">
+                          <Stack direction="row" alignItems="center" spacing={2}>
+                            <Avatar alt={name} src={avatarUrl} />
+                            <Typography variant="subtitle2" noWrap>
+                              {name}
+                            </Typography>
+                          </Stack>
                         </TableCell>
-                        <TableCell align="left">{fToNow(date)}</TableCell>
-                        <TableCell align="left">{doctorName}</TableCell>
+                        <TableCell align="left">{gender}</TableCell>
+                        <TableCell align="left">{fDate(dob)}</TableCell>
+                        <TableCell align="left">{address}</TableCell>
+                        <TableCell align="left">{bloodGroup}</TableCell>
+                        <TableCell align="left">{height}</TableCell>
                         <TableCell align="left">
-                            <Label variant="ghost" color={(priority === 'high' && 'error') || 'success'}>
-                            {sentenceCase(priority)}
-                          </Label>
-                        </TableCell>
-                        <TableCell align="left">
-                          <Label variant="ghost" color={(status === 'canceled' && 'error') || 'success'}>
+                          <Label variant="ghost" color={(status === 'banned' && 'error') || 'success'}>
                             {sentenceCase(status)}
                           </Label>
                         </TableCell>
 
                         <TableCell align="right">
-                          <CheckupMoreMenu handleMenuClick={() => onViewCheckup(row)}/>
+                          <UserMoreMenu />
                         </TableCell>
                       </TableRow>
                     );
@@ -237,7 +229,7 @@ export default function Checkup() {
           <TablePagination
             rowsPerPageOptions={[5, 10, 25]}
             component="div"
-            count={CheckupLIST.length}
+            count={USERLIST.length}
             rowsPerPage={rowsPerPage}
             page={page}
             onPageChange={handleChangePage}
@@ -245,13 +237,6 @@ export default function Checkup() {
           />
         </Card>
       </Container>
-    
-        <CheckupViewModal 
-            open={openModal}
-            onClose={onCloseModal}
-            data={selectedData}
-        />
-
     </Page>
   );
 }

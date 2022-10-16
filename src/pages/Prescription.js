@@ -26,7 +26,7 @@ import Iconify from '../components/Iconify';
 import SearchNotFound from '../components/SearchNotFound';
 import { PrescriptionListHead, PrescriptionListToolbar, PrescriptionMoreMenu, PrescriptionViewModal } from '../sections/@dashboard/prescription';
 // mock
-import USERLIST from '../_mock/user';
+import PatientLIST from '../_mock/patient';
 
 // ----------------------------------------------------------------------
 
@@ -95,7 +95,7 @@ export default function Prescription() {
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelecteds = USERLIST.map((n) => n.name);
+      const newSelecteds = PatientLIST.map((n) => n.name);
       setSelected(newSelecteds);
       return;
     }
@@ -140,9 +140,9 @@ export default function Prescription() {
     setOpenModal(false);
   }
 
-  const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - USERLIST.length) : 0;
+  const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - PatientLIST.length) : 0;
 
-  const filteredUsers = applySortFilter(USERLIST, getComparator(order, orderBy), filterName);
+  const filteredUsers = applySortFilter(PatientLIST, getComparator(order, orderBy), filterName);
 
   const isUserNotFound = filteredUsers.length === 0;
 
@@ -168,16 +168,16 @@ export default function Prescription() {
                   order={order}
                   orderBy={orderBy}
                   headLabel={TABLE_HEAD}
-                  rowCount={USERLIST.length}
+                  rowCount={PatientLIST.length}
                   numSelected={selected.length}
                   onRequestSort={handleRequestSort}
                   onSelectAllClick={handleSelectAllClick}
                 />
                 <TableBody>
                   {filteredUsers.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
-                    const { id, name, role, status, company, avatarUrl, isVerified } = row;
-                    //const { id, LabTests, Medicines, Dosage, Days, Time, Instruction, Status} = row;
-                    const isItemSelected = selected.indexOf(name) !== -1;
+                    // const { id, name, role, status, company, avatarUrl, isVerified } = row;
+                    const { id, LabTests, Medicines, Dosage, Days, Time, Instruction, status} = row;
+                    const isItemSelected = selected.indexOf(id) !== -1;
 
                     return (
                       <TableRow
@@ -189,21 +189,14 @@ export default function Prescription() {
                         aria-checked={isItemSelected}
                       >
                         <TableCell padding="checkbox">
-                          <Checkbox checked={isItemSelected} onChange={(event) => handleClick(event, name)} />
+                          <Checkbox checked={isItemSelected} onChange={(event) => handleClick(event, id)} />
                         </TableCell>
-                        <TableCell component="th" scope="row" padding="none">
-                          <Stack direction="row" alignItems="center" spacing={2}>
-                            <Avatar alt={name} src={avatarUrl} />
-                            <Typography variant="subtitle2" noWrap>
-                              {name}
-                            </Typography>
-                          </Stack>
-                        </TableCell>
-                        <TableCell align="left">{company}</TableCell>
-                        <TableCell align="left">{role}</TableCell>
-                        <TableCell align="left">{role}</TableCell>
-                        <TableCell align="left">{isVerified ? 'Yes' : 'No'}</TableCell>
-                        <TableCell align="left">{role}</TableCell>
+                        <TableCell align="left">{LabTests}</TableCell>
+                        <TableCell align="left">{Medicines}</TableCell>
+                        <TableCell align="left">{Dosage}</TableCell>
+                        <TableCell align="left">{Days}</TableCell>
+                        <TableCell align="left">{Time}</TableCell>
+                        <TableCell align="left">{Instruction}</TableCell>
                         <TableCell align="left">
                           <Label variant="ghost" color={(status === 'banned' && 'error') || 'success'}>
                             {sentenceCase(status)}
@@ -215,36 +208,6 @@ export default function Prescription() {
                         </TableCell>
                       </TableRow>
                     );
-
-                    // return (
-                    //   <TableRow
-                    //     hover
-                    //     key={id}
-                    //     tabIndex={-1}
-                    //     role="checkbox"
-                    //     selected={isItemSelected}
-                    //     aria-checked={isItemSelected}
-                    //   >
-                    //     <TableCell padding="checkbox">
-                    //       <Checkbox checked={isItemSelected} onChange={(event) => handleClick(event, Medicines)} />
-                    //     </TableCell>
-                    //     <TableCell align="left">{LabTests}</TableCell>
-                    //     <TableCell align="left">{Medicines}</TableCell>
-                    //     <TableCell align="left">{Dosage}</TableCell>
-                    //     <TableCell align="left">{Days}</TableCell>
-                    //     <TableCell align="left">{Time}</TableCell>
-                    //     <TableCell align="left">{Instruction}</TableCell>
-                    //     <TableCell align="left">
-                    //       <Label variant="ghost" color={(Status === 'banned' && 'error') || 'success'}>
-                    //         {sentenceCase(Status)}
-                    //       </Label>
-                    //     </TableCell>
-
-                    //     <TableCell align="right">
-                    //       <PrescriptionMoreMenu handleMenuClick={() => onViewPrescription(row)}/>
-                    //     </TableCell>
-                    //   </TableRow>
-                    // );
                   })}
                   {emptyRows > 0 && (
                     <TableRow style={{ height: 53 * emptyRows }}>
@@ -269,7 +232,7 @@ export default function Prescription() {
           <TablePagination
             rowsPerPageOptions={[5, 10, 25]}
             component="div"
-            count={USERLIST.length}
+            count={PatientLIST.length}
             rowsPerPage={rowsPerPage}
             page={page}
             onPageChange={handleChangePage}

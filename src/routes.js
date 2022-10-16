@@ -11,6 +11,7 @@ import NotFound from './pages/Page404';
 import Register from './pages/Register';
 // import Products from './pages/Products';
 import Prescription from './pages/Prescription';
+import Patient from './pages/Patient';
 import DashboardApp from './pages/DashboardApp';
 
 // ----------------------------------------------------------------------
@@ -23,7 +24,7 @@ export default function Router({isAuth}) {
       children: [
         { path: 'app', element: <DashboardApp /> },
         // { path: 'user', element: <User heading={'User'}/> },
-        { path: 'patient', element: <User heading={'Patient'}/> },
+        { path: 'patient', element: <Patient heading={'Patient'}/> },
         { path: 'prescription', element: <Prescription /> },
         { path: 'checkup', element: <Checkup /> },
         { path: 'doctor', element: <User heading={'Doctor'}/> },
