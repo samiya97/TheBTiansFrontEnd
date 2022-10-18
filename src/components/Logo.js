@@ -5,7 +5,7 @@ import { useTheme } from '@mui/material/styles';
 import { Box } from '@mui/material';
 
 // components
-//import CareProLogo from 'assets/images/carepro-logo.png';
+// import CareProLogo from 'assets/images/carepro-logo.png';
 import CareProLogo from 'assets/images/carepro-logo2.png';
 
 // ----------------------------------------------------------------------

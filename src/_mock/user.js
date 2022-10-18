@@ -24,21 +24,4 @@ const users = [...Array(24)].map((_, index) => ({
   ]),
 }));
 
-const patients = [...Array(24)].map((_, index) => ({
-  id: faker.datatype.uuid(), 
-  LabTests :sample([
-    'CBC',
-    'Lapid',
-    'Liver',
-    'BMP',
-  ]),
-   Medicines:sample([
-    'Evil',
-    'Panadol',
-    'Softin',
-    'Disprin',
-  ]), 
-  //Dosage: , Days: , Time: , Instruction: , Status: sample(['current', 'old']),
-}));
-
 export default users;

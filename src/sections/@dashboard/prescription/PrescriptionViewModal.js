@@ -32,30 +32,30 @@ const PrescriptionViewModal = ({open,onClose,data}) => {
                 <Grid item xs={6}>
                     <div>
                     <Typography gutterBottom variant="caption" sx={{ color: 'text.disabled', display: 'block' }}>
-                        Name
+                        Medicine
                     </Typography>
                     <Typography gutterBottom variant="subtitle2" sx={{ display: 'block' }}>
-                        {data?.name}
+                        {data?.Medicines}
                     </Typography>
                     </div>
                 </Grid>
                 <Grid item xs={6}>
                     <div>
                     <Typography gutterBottom variant="caption" sx={{ color: 'text.disabled', display: 'block' }}>
-                        Company
+                    Dosage
                     </Typography>
                     <Typography gutterBottom variant="subtitle2" sx={{ display: 'block' }}>
-                        {data?.company}
+                        {data?.Dosage}
                     </Typography>
                     </div>
                 </Grid>
                 <Grid item xs={6}>
                     <div>
                     <Typography gutterBottom variant="caption" sx={{ color: 'text.disabled', display: 'block' }}>
-                        Role
+                    Instruction
                     </Typography>
                     <Typography gutterBottom variant="subtitle2" sx={{ display: 'block' }}>
-                        {data?.role}
+                        {data?.Instruction}
                     </Typography>
                     </div>
                 </Grid>
